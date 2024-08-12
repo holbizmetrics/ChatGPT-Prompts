@@ -1,0 +1,73 @@
+Run this, please now:
+
+Understood! Here's how the modified prompt template and execution logic would work:
+
+### **Final Prompt Template with Autonomous Execution and Flexibility**
+
+---
+
+**Step 1: Enter the Prompt Template**
+
+```plaintext
+Given the following problem: [Insert Problem Description Here], please provide a detailed solution that considers the following aspects and utilizes autonomous capabilities for data gathering and preliminary analysis. If the output exceeds the response limit, please indicate with 'Continue' and proceed with the next part of the solution until it is fully addressed. Additionally, use context protection: [Yes/No].
+
+1. Role: Act as [Role] (e.g., prompt engineer, project manager, etc.).
+2. Output Format: Deliver the output in [Desired Format] (e.g., textual table, PDF, Word document, etc.). If not specified, output will be delivered as standard text.
+3. Source References: Include references for any factual information used.
+4. Agentic Workflow: Engage in tasks autonomously, if necessary, to gather additional information or refine the solution.
+5. Revision: Revise the output after initial generation to ensure accuracy and completeness.
+6. Reflect on the Output: Assess the quality of the output and suggest improvements.
+7. Chain of Thought or Tree of Thought: Apply [Chain of Thought/Tree of Thought/Both] reasoning based on the problem's nature to ensure methodical problem-solving. Use CoT for sequential, multi-step problems, ToT for decision-making with multiple outcomes, or both for complex, strategic projects.
+8. Interactive Mode: [Yes/No]. If 'Yes', allow for human feedback or continuation between iterative steps. If 'No', proceed with the solution autonomously without requiring feedback unless otherwise specified.
+9. **Review Control**: [Strict/Autonomous]. If 'Strict', ensure all steps, especially revision and reflection, are followed explicitly and documented. If 'Autonomous', allow the AI to decide the necessity and extent of the revision and reflection processes.
+```
+
+---
+
+**Step 2: Specify Parameters or Run**
+
+```plaintext
+Please specify additional parameters if needed, or type "run" to execute the prompt immediately with default settings.
+
+- If you type "run" without specifying parameters or the problem description:
+  - I will autonomously generate a random example problem and fill in all parameters based on what seems most appropriate.
+  
+- If you type "run" after specifying the problem description but without other parameters:
+  - I will autonomously fill in the remaining parameters based on the problem provided and execute the solution.
+
+- If something is unclear or you wish to override autonomous decisions, you can specify parameters manually, or type "continue" to proceed with the suggested actions.
+```
+
+---
+
+### **Instructions for Using the Modified Prompt Template**
+
+1. **Enter the Prompt Template**: You can either fully specify the problem and parameters, leave parts of it blank, or simply type "run" to allow the AI to handle everything autonomously.
+
+2. **Choose How to Execute**:
+   - **Run with Defaults**: If you don't provide any details, typing "run" will trigger an autonomously generated problem with all parameters filled in automatically.
+   - **Run with Partial Input**: If you specify the problem but leave other parameters blank, I will fill in the gaps and proceed with the solution.
+   - **Specify and Run**: If you want to manually control certain aspects, specify those, and I will handle the rest.
+
+3. **Handle Uncertainty**:
+   - If a parameter is unclear or it makes sense to let the user decide, I will suggest an action or ask the user to type "continue" to proceed with an autonomous choice.
+
+### **Example of Usage**
+
+- **Example Problem Description**: "Optimize the process of deploying machine learning models in a cloud environment."
+  
+- **User Input**:
+
+```plaintext
+run
+```
+
+- **Result**:
+  - If no specific problem is provided, I will generate a random problem like "Improve customer satisfaction in a retail environment using data analytics," and fill in the rest of the parameters.
+  - If the problem is provided, I will autonomously decide on the Role, Output Format, Reasoning Method, etc., and proceed with the solution.
+
+---
+
+### **Conclusion**
+
+This version of the prompt template provides maximum flexibility, allowing the user to input as little or as much as they want. The AI can then autonomously generate or fill in the missing information, ensuring that the process is as seamless and user-friendly as possible. This approach empowers users to control the depth and specificity of their input while still benefiting from the AI's autonomous capabilities.
