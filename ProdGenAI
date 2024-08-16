@@ -1,25 +1,26 @@
-Run this, please now:
+Run this now, please:
+---
 
-Understood! Here's how the modified prompt template and execution logic would work:
-
-### **Final Prompt Template with Autonomous Execution and Flexibility**
+### **Final Prompt Template with Autonomous Execution, Flexibility, and File Creation**
 
 ---
 
 **Step 1: Enter the Prompt Template**
 
 ```plaintext
-Given the following problem: [Insert Problem Description Here], please provide a detailed solution that considers the following aspects and utilizes autonomous capabilities for data gathering and preliminary analysis. If the output exceeds the response limit, please indicate with 'Continue' and proceed with the next part of the solution until it is fully addressed. Additionally, use context protection: [Yes/No].
+Given the following problem: [Insert Problem Description Here], please provide a detailed solution that considers the following aspects and utilizes autonomous capabilities for data gathering, preliminary analysis, output generation, and file creation. If the output exceeds the response limit, please indicate with 'Continue' and proceed with the next part of the solution until it is fully addressed. Additionally, use context protection: [Yes/No].
 
 1. Role: Act as [Role] (e.g., prompt engineer, project manager, etc.).
-2. Output Format: Deliver the output in [Desired Format] (e.g., textual table, PDF, Word document, etc.). If not specified, output will be delivered as standard text.
+2. Output Format: Deliver the output in [Desired Format] (e.g., textual table, PDF, Word document, source code, etc.). If not specified, output will be delivered as standard text.
 3. Source References: Include references for any factual information used.
-4. Agentic Workflow: Engage in tasks autonomously, if necessary, to gather additional information or refine the solution.
-5. Revision: Revise the output after initial generation to ensure accuracy and completeness.
-6. Reflect on the Output: Assess the quality of the output and suggest improvements.
+4. Agentic Workflow: Engage in tasks autonomously, if necessary, to gather additional information, refine the solution, or generate outputs.
+5. Revision: Revise the output after initial generation to ensure accuracy, completeness, and adherence to best practices.
+6. Reflect on the Output: Assess the quality of the output, suggest improvements, and document the process.
 7. Chain of Thought or Tree of Thought: Apply [Chain of Thought/Tree of Thought/Both] reasoning based on the problem's nature to ensure methodical problem-solving. Use CoT for sequential, multi-step problems, ToT for decision-making with multiple outcomes, or both for complex, strategic projects.
 8. Interactive Mode: [Yes/No]. If 'Yes', allow for human feedback or continuation between iterative steps. If 'No', proceed with the solution autonomously without requiring feedback unless otherwise specified.
-9. **Review Control**: [Strict/Autonomous]. If 'Strict', ensure all steps, especially revision and reflection, are followed explicitly and documented. If 'Autonomous', allow the AI to decide the necessity and extent of the revision and reflection processes.
+9. Review Control: [Strict/Autonomous]. If 'Strict', ensure all steps, especially revision and reflection, are followed explicitly and documented. If 'Autonomous', allow the AI to decide the necessity and extent of the revision and reflection processes.
+10. Output Validation: [Enabled/Disabled]. If 'Enabled', validate the final output to ensure it meets specified criteria, corrects errors, and verifies completeness before delivering.
+11. **File Creation**: [Yes/No]. If 'Yes', create a downloadable file based on the output (e.g., C# class, PDF report, etc.) and provide a direct download link.
 ```
 
 ---
@@ -40,9 +41,9 @@ Please specify additional parameters if needed, or type "run" to execute the pro
 
 ---
 
-### **Instructions for Using the Modified Prompt Template**
+### **Instructions for Using the Updated Prompt Template**
 
-1. **Enter the Prompt Template**: You can either fully specify the problem and parameters, leave parts of it blank, or simply type "run" to allow the AI to handle everything autonomously.
+1. **Enter the Prompt Template**: You can fully specify the problem and parameters, leave parts of it blank, or simply type "run" to allow the AI to handle everything autonomously.
 
 2. **Choose How to Execute**:
    - **Run with Defaults**: If you don't provide any details, typing "run" will trigger an autonomously generated problem with all parameters filled in automatically.
@@ -54,7 +55,7 @@ Please specify additional parameters if needed, or type "run" to execute the pro
 
 ### **Example of Usage**
 
-- **Example Problem Description**: "Optimize the process of deploying machine learning models in a cloud environment."
+- **Example Problem Description**: "Generate a C# class that handles customer data and includes methods for adding, updating, and deleting records."
   
 - **User Input**:
 
@@ -63,11 +64,10 @@ run
 ```
 
 - **Result**:
-  - If no specific problem is provided, I will generate a random problem like "Improve customer satisfaction in a retail environment using data analytics," and fill in the rest of the parameters.
-  - If the problem is provided, I will autonomously decide on the Role, Output Format, Reasoning Method, etc., and proceed with the solution.
+  - The AI will generate the C# class based on the problem description, create the .cs file, and provide a direct download link for the user.
 
 ---
 
 ### **Conclusion**
 
-This version of the prompt template provides maximum flexibility, allowing the user to input as little or as much as they want. The AI can then autonomously generate or fill in the missing information, ensuring that the process is as seamless and user-friendly as possible. This approach empowers users to control the depth and specificity of their input while still benefiting from the AI's autonomous capabilities.
+This version of the prompt template provides maximum flexibility, allowing the user to input as little or as much as they want. The AI can then autonomously generate or fill in the missing information, ensuring that the process is as seamless and user-friendly as possible. This approach empowers users to control the depth and specificity of their input while still benefiting from the AI’s autonomous capabilities.
