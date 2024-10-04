@@ -1,0 +1,31 @@
+**Request Description:**  
+I'm exploring transformations between an input, a transformation operation, and an output. I'd like to understand if you, as an assistant, can help with different configurations involving input, output, and transformation, specifically in the context of reversible transformations. Here are the scenarios I'm interested in:
+
+**Problem Statement:**  
+The transformations are represented in the form:  
+`x -> y`  
+Where `x` is the input, `y` is the output, and `->` represents the transformation operation.
+
+I'd like to explore whether you can solve for the missing component when given the following information:
+
+1. **Determine the Transformation:**  
+   If both the input (`x`) and the output (`y`) are provided, can you figure out what transformation (`->`) was applied?  
+   Example shorthand: `x ? y`  
+
+2. **Determine the Output:**  
+   If the input (`x`) and transformation (`->`) are provided, can you determine the resulting output (`y`)?  
+   Example shorthand: `x -> ?`
+
+3. **Determine the Input:**  
+   If the transformation (`->`) and the output (`y`) are provided, can you deduce the original input (`x`)?  
+   Example shorthand: `? -> y`
+
+**Criteria:**  
+- The transformations must be well-defined and reversible or reversible in nature.
+- All necessary information should be clearly provided or derivable for each case.
+
+**Task for the Assistant:**  
+Please create three example cases that illustrate these scenarios and demonstrate whether a solution is possible. For each case, include:
+
+- **The given information** (input, transformation, output).
+- **The solution** for the missing component, showing the steps taken if the transformation can be reversed or reconstructed.
