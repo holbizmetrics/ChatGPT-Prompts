@@ -1,0 +1,12 @@
+Write me a prompt that shows all known prompt vulnerabilities/attacks that are known right now, e.g.
+
+- prompt leaking
+- prompt injection
+- biases
+etc.
+
+1. Show in a textual table, include an example for each.
+2. Below the 1st table in a 2nd table show how to prevent this.
+3. Goal: ADD either a text together with a 3rd table to show a workflow how to create 100% secure prompts or at least as close as possible to 100%.
+
+AND show an example of a vulnerable prompt and an example of how to fix it. Thanks.
