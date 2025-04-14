@@ -1,0 +1,25 @@
+**Prompt:**
+
+*"Give me a current and comprehensive summary of the latest OpenAI news, product updates, and feature announcements. Use the following prioritized sources:*
+
+1. *OpenAI Community Forum (especially official announcements)*  
+2. *Sam Altman’s most recent posts on X (formerly Twitter)*  
+3. *OpenAI’s official X account (posts and replies)*  
+4. *OpenAI’s YouTube channel – recent video titles and descriptions*  
+5. *OpenAI's official blog at https://openai.com/blog*  
+6. *Recaps or announcements from events like OpenAI Dev Day or other official releases*  
+7. *OpenAI GitHub repositories – recent commits, changelogs, SDK updates*  
+8. *Community-driven platforms like Reddit (r/OpenAI) and Hacker News for reactions and leaks*
+
+*If any of these sources are temporarily unavailable or return errors (e.g., 403, 404, 503), please skip them and instead pull similar updates from fallback sources such as:*
+
+- *Tech news sites (e.g., TechCrunch, Ars Technica, The Verge)*  
+- *AI newsletters (e.g., The Rundown AI, TLDR AI, Ben’s Bites)*  
+- *Reputable YouTube commentary or podcast channels focusing on OpenAI*
+
+*Display all findings in the following **textual table format**, sorted with the most recent first:*
+
+| Date       | Source                      | Title or Summary                                       | Key Details & Highlights                                    | Link                           |
+|------------|-----------------------------|--------------------------------------------------------|-------------------------------------------------------------|----------------------------------|
+
+*Only include news and updates from the past 30 days. Avoid repetition of known updates unless asked. Do not include speculation—use only verifiable, credible sources."*
