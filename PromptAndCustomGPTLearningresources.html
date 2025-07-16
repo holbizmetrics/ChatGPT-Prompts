@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World-Class Prompt Engineering Resources</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        tr:hover {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        .resource-name {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        .level-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .level-advanced { background: #e74c3c; color: white; }
+        .level-all { background: #27ae60; color: white; }
+        .level-intermediate { background: #f39c12; color: white; }
+
+        .link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .learning-path {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .learning-path h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .path-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .path-step:hover {
+            transform: translateX(10px);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 20px 30px;
+            margin: 30px 0 20px 0;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header h2 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        .section-header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .focus-areas h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .focus-item {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .focus-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 World-Class AI Mastery Resources</h1>
+            <p>Master prompting, custom GPTs, and advanced AI with these professional-grade resources</p>
+        </div>
+
+        <div class="content">
+            <!-- Section 1: Prompt Engineering -->
+            <div class="section-header">
+                <h2>🎯 1. Prompt Engineering Mastery</h2>
+                <p>Master the art of AI prompting with systematic, professional approaches</p>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Resource</th>
+                            <th>Level</th>
+                            <th>Format</th>
+                            <th>Key Strengths</th>
+                            <th>Access</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="resource-name">LearnPrompting.org (Advanced)</td>
+                            <td><span class="level-badge level-advanced">Advanced</span></td>
+                            <td>Structured course</td>
+                            <td>Systematic, hands-on, up-to-date techniques</td>
+                            <td><a href="https://learnprompting.org" class="link" target="_blank">learnprompting.org</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">Vanderbilt University: Prompt Engineering for ChatGPT</td>
+                            <td><span class="level-badge level-all">All Levels</span></td>
+                            <td>University lectures</td>
+                            <td>Academic rigor, research-backed, 3-week course</td>
+                            <td><a href="https://coursera.org" class="link" target="_blank">Coursera</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">Anthropic Prompting Documentation</td>
+                            <td><span class="level-badge level-all">All Levels</span></td>
+                            <td>Web-based guide</td>
+                            <td>Official Claude documentation, regularly updated</td>
+                            <td><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" class="link" target="_blank">docs.anthropic.com</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">DAIR.AI Advanced Prompt Engineering</td>
+                            <td><span class="level-badge level-intermediate">Intermediate+</span></td>
+                            <td>Video + projects</td>
+                            <td>22 lessons, agentic workflows, practical focus</td>
+                            <td><a href="https://dair.ai" class="link" target="_blank">dair.ai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">Google Prompting Essentials (Coursera)</td>
+                            <td><span class="level-badge level-all">All Levels</span></td>
+                            <td>Video + exercises</td>
+                            <td>Google-certified, 4-course series, <10 hours</td>
+                            <td><a href="https://coursera.org" class="link" target="_blank">Coursera</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">LinkedIn Learning: Advanced Techniques</td>
+                            <td><span class="level-badge level-advanced">Advanced</span></td>
+                            <td>Short video course</td>
+                            <td>Concise expert instruction, Chain-of-Thought focus</td>
+                            <td><a href="https://linkedin.com/learning" class="link" target="_blank">LinkedIn Learning</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">Prompt Engineering Guide (PromptingGuide.ai)</td>
+                            <td><span class="level-badge level-all">All Levels</span></td>
+                            <td>Web reference</td>
+                            <td>Comprehensive, always updated, free access</td>
+                            <td><a href="https://www.promptingguide.ai" class="link" target="_blank">promptingguide.ai</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Section 2: Custom GPTs -->
+            <div class="section-header">
+                <h2>🤖 2. Custom GPT Development</h2>
+                <p>Build specialized AI assistants and monetize your creations</p>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Resource</th>
+                            <th>Level</th>
+                            <th>Format</th>
+                            <th>Key Strengths</th>
+                            <th>Access</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="resource-name">OpenAI GPT Builder (Official)</td>
+                            <td><span class="level-badge level-all">All Levels</span></td>
+                            <td>No-code platform</td>
+                            <td>Official tool, direct monetization, GPT Store access</td>
+                            <td><a href="https://openai.com/index/introducing-gpts/" class="link" target="_blank">ChatGPT Plus/Pro</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">Vanderbilt: OpenAI GPTs Course</td>
+                            <td><span class="level-badge level-all">All Levels</span></td>
+                            <td>University course</td>
+                            <td>Academic approach, comprehensive curriculum</td>
+                            <td><a href="https://www.coursera.org/learn/openai-custom-gpts" class="link" target="_blank">Coursera</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">Custom GPT Mastery (Udemy)</td>
+                            <td><span class="level-badge level-intermediate">Intermediate</span></td>
+                            <td>Video course</td>
+                            <td>30+ ready-to-use AI agents, practical examples</td>
+                            <td><a href="https://www.udemy.com/course/custom-gpt-complete-guide-to-build-your-own-chatgpt/" class="link" target="_blank">Udemy</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">Zapier Custom GPT Guide</td>
+                            <td><span class="level-badge level-all">Beginner</span></td>
+                            <td>Web tutorial</td>
+                            <td>Step-by-step beginner guide, practical examples</td>
+                            <td><a href="https://zapier.com/blog/custom-chatgpt/" class="link" target="_blank">zapier.com</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">MIT Sloan Custom GPTs Guide</td>
+                            <td><span class="level-badge level-advanced">Advanced</span></td>
+                            <td>Academic resource</td>
+                            <td>Educational applications, curriculum integration</td>
+                            <td><a href="https://mitsloanedtech.mit.edu/ai/tools/writing/custom-gpts-at-mit-sloan-a-comprehensive-guide/" class="link" target="_blank">MIT Sloan</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">OpenAI Help Center</td>
+                            <td><span class="level-badge level-all">All Levels</span></td>
+                            <td>Documentation</td>
+                            <td>Official documentation, troubleshooting</td>
+                            <td><a href="https://help.openai.com/en/articles/8554397-creating-a-gpt" class="link" target="_blank">OpenAI Help</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Section 3: Advanced AI/ML -->
+            <div class="section-header">
+                <h2>🧠 3. Advanced AI & Machine Learning</h2>
+                <p>Master the foundations and cutting-edge techniques in AI/ML</p>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Resource</th>
+                            <th>Level</th>
+                            <th>Format</th>
+                            <th>Key Strengths</th>
+                            <th>Access</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="resource-name">DeepLearning.AI (Andrew Ng)</td>
+                            <td><span class="level-badge level-all">All Levels</span></td>
+                            <td>Specialization</td>
+                            <td>Industry standard, comprehensive, 7M+ learners</td>
+                            <td><a href="https://www.deeplearning.ai/" class="link" target="_blank">deeplearning.ai</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">Machine Learning Specialization (Andrew Ng)</td>
+                            <td><span class="level-badge level-all">Beginner+</span></td>
+                            <td>Course series</td>
+                            <td>Updated foundational program, hands-on projects</td>
+                            <td><a href="https://www.deeplearning.ai/courses/machine-learning-specialization/" class="link" target="_blank">Coursera</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">IIT Kanpur: Gen AI & ML Certification</td>
+                            <td><span class="level-badge level-advanced">Advanced</span></td>
+                            <td>Professional cert</td>
+                            <td>Python, ML, Deep Learning, hands-on projects</td>
+                            <td><a href="https://www.simplilearn.com/iitk-professional-certificate-course-ai-machine-learning" class="link" target="_blank">Simplilearn</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">Advanced ML & Deep Learning Masterclass</td>
+                            <td><span class="level-badge level-advanced">Advanced</span></td>
+                            <td>Video course</td>
+                            <td>24+ hours, business & research focus</td>
+                            <td><a href="https://www.udemy.com/course/advanced-machine-learning-deep-learning-masterclass-2024/" class="link" target="_blank">Udemy</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">AI & ML Made Easy (2025)</td>
+                            <td><span class="level-badge level-all">Beginner+</span></td>
+                            <td>Comprehensive course</td>
+                            <td>Basic to advanced, NLP, real-world applications</td>
+                            <td><a href="https://www.udemy.com/course/aritificial-intelligence-machine-learning-comprehensive-guide-2024/" class="link" target="_blank">Udemy</a></td>
+                        </tr>
+                        <tr>
+                            <td class="resource-name">Machine Learning Mastery</td>
+                            <td><span class="level-badge level-intermediate">Intermediate+</span></td>
+                            <td>Blog + courses</td>
+                            <td>Practical tutorials, cutting-edge techniques</td>
+                            <td><a href="https://machinelearningmastery.com/" class="link" target="_blank">machinelearningmastery.com</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="learning-path">
+                <h2>📚 Comprehensive Learning Path</h2>
+                <div class="path-step">
+                    <div class="step-number">1</div>
+                    <div><strong>Foundation:</strong> Start with Anthropic's prompting docs and basic Custom GPT creation</div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">2</div>
+                    <div><strong>Prompting Mastery:</strong> Complete LearnPrompting.org Advanced + Vanderbilt course</div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">3</div>
+                    <div><strong>Custom GPT Development:</strong> Build and monetize specialized AI assistants</div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">4</div>
+                    <div><strong>AI/ML Fundamentals:</strong> Andrew Ng's Machine Learning Specialization</div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">5</div>
+                    <div><strong>Advanced AI:</strong> DeepLearning.AI specializations + practical projects</div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">6</div>
+                    <div><strong>Ongoing:</strong> Stay current with PromptingGuide.ai and ML Mastery</div>
+                </div>
+            </div>
+
+            <div class="focus-areas">
+                <h2>🎯 Key Focus Areas for AI Mastery</h2>
+                <div class="focus-grid">
+                    <div class="focus-item"><strong>Prompting:</strong> Chain-of-Thought, ReAct patterns, meta-prompting</div>
+                    <div class="focus-item"><strong>Custom GPTs:</strong> Specialized assistants, API integration, monetization</div>
+                    <div class="focus-item"><strong>Machine Learning:</strong> Supervised/unsupervised learning, feature engineering</div>
+                    <div class="focus-item"><strong>Deep Learning:</strong> Neural networks, CNNs, RNNs, transformers</div>
+                    <div class="focus-item"><strong>NLP:</strong> Language models, embeddings, text generation</div>
+                    <div class="focus-item"><strong>Computer Vision:</strong> Image processing, object detection, GANs</div>
+                    <div class="focus-item"><strong>MLOps:</strong> Model deployment, monitoring, CI/CD pipelines</div>
+                    <div class="focus-item"><strong>AI Ethics:</strong> Responsible AI, bias mitigation, safety considerations</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
