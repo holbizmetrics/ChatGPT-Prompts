@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI o3 Research Guide - Complete Resource Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .resource-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .resource-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .resource-card:hover::before {
+            left: 100%;
+        }
+
+        .resource-card:hover {
+            transform: translateX(5px);
+            background: #f0f4ff;
+            border-left-color: #764ba2;
+        }
+
+        .resource-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .resource-url {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9rem;
+            word-break: break-all;
+            margin-bottom: 8px;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .resource-url:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .resource-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .best-practices {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .practice-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .practice-card:hover {
+            transform: scale(1.05);
+        }
+
+        .practice-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .practice-card p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .usage-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .usage-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .usage-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .usage-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .learning-path {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::before {
+            content: attr(data-step);
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .step-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .step-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-card li {
+            padding: 8px 0;
+            color: #666;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .step-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .excellent { background: linear-gradient(135deg, #28a745, #20c997); }
+        .very-good { background: linear-gradient(135deg, #ffc107, #fd7e14); }
+        .good { background: linear-gradient(135deg, #17a2b8, #6f42c1); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>OpenAI o3 Research Guide</h1>
+            <p>Your complete resource collection for mastering OpenAI's most advanced reasoning model and Deep Research capabilities</p>
+        </div>
+
+        <div class="section">
+            <h2><span class="section-icon">📚</span>Official OpenAI Resources</h2>
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <div class="resource-title">o3 Deep Research Official Guide</div>
+                    <a href="https://openai.com/index/introducing-deep-research/" class="resource-url" target="_blank">https://openai.com/index/introducing-deep-research/</a>
+                    <div class="resource-description">Understanding capabilities and use cases</div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-title">o3 Model Documentation (API)</div>
+                    <a href="https://platform.openai.com/docs/models/o3" class="resource-url" target="_blank">https://platform.openai.com/docs/models/o3</a>
+                    <div class="resource-description">Technical specifications and API usage</div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-title">Deep Research API Guide</div>
+                    <a href="https://platform.openai.com/docs/guides/deep-research" class="resource-url" target="_blank">https://platform.openai.com/docs/guides/deep-research</a>
+                    <div class="resource-description">API implementation details</div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-title">OpenAI Cookbook - Deep Research</div>
+                    <a href="https://cookbook.openai.com/examples/deep_research_api/introduction_to_deep_research_api" class="resource-url" target="_blank">https://cookbook.openai.com/examples/deep_research_api/</a>
+                    <div class="resource-description">Practical code examples and tutorials</div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-title">Deep Research FAQ</div>
+                    <a href="https://help.openai.com/en/articles/10500283-deep-research-faq" class="resource-url" target="_blank">https://help.openai.com/en/articles/10500283-deep-research-faq</a>
+                    <div class="resource-description">Common questions and usage limits</div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-title">API Access Guide</div>
+                    <a href="https://help.openai.com/en/articles/10362446-api-access-to-o1-o3-and-o4-models" class="resource-url" target="_blank">https://help.openai.com/en/articles/10362446-api-access-to-o1-o3-and-o4-models</a>
+                    <div class="resource-description">How to get access to o3 models</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="section-icon">📢</span>Key OpenAI Announcements</h2>
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <div class="resource-title">o3 & o4-mini Launch</div>
+                    <a href="https://openai.com/index/introducing-o3-and-o4-mini/" class="resource-url" target="_blank">https://openai.com/index/introducing-o3-and-o4-mini/</a>
+                    <div class="resource-description">Latest capabilities and benchmarks</div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-title">o3-mini Release</div>
+                    <a href="https://openai.com/index/openai-o3-mini/" class="resource-url" target="_blank">https://openai.com/index/openai-o3-mini/</a>
+                    <div class="resource-description">Cost-effective reasoning model details</div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-title">OpenAI Research Page</div>
+                    <a href="https://openai.com/research/" class="resource-url" target="_blank">https://openai.com/research/</a>
+                    <div class="resource-description">Latest research papers and findings</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="section-icon">🎓</span>Best Third-Party Tutorials</h2>
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <div class="resource-title">DataCamp o3 API Tutorial <span class="badge excellent">EXCELLENT</span></div>
+                    <a href="https://www.datacamp.com/tutorial/o3-api" class="resource-url" target="_blank">https://www.datacamp.com/tutorial/o3-api</a>
+                    <div class="resource-description">Step-by-step API implementation with code examples</div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-title">DataCamp Deep Research Guide <span class="badge excellent">EXCELLENT</span></div>
+                    <a href="https://www.datacamp.com/blog/deep-research-openai" class="resource-url" target="_blank">https://www.datacamp.com/blog/deep-research-openai</a>
+                    <div class="resource-description">Practical examples and testing insights</div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-title">Prompting Guide - Deep Research <span class="badge excellent">EXCELLENT</span></div>
+                    <a href="https://www.promptingguide.ai/guides/deep-research" class="resource-url" target="_blank">https://www.promptingguide.ai/guides/deep-research</a>
+                    <div class="resource-description">Comprehensive use cases and best practices</div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-title">Keywords AI Effective Usage Guide <span class="badge very-good">VERY GOOD</span></div>
+                    <a href="https://www.keywordsai.co/blog/how-to-use-openai-deep-research-effectively" class="resource-url" target="_blank">https://www.keywordsai.co/blog/how-to-use-openai-deep-research-effectively</a>
+                    <div class="resource-description">Practical tips and prompt crafting</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="section-icon">🔧</span>Technical Implementation</h2>
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <div class="resource-title">TechTarget o3 Explained <span class="badge good">GOOD</span></div>
+                    <a href="https://www.techtarget.com/whatis/feature/OpenAI-o3-explained-Everything-you-need-to-know" class="resource-url" target="_blank">https://www.techtarget.com/whatis/feature/OpenAI-o3-explained-Everything-you-need-to-know</a>
+                    <div class="resource-description">Technical architecture and capabilities</div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-title">Wikipedia o3 Overview <span class="badge good">GOOD</span></div>
+                    <a href="https://en.wikipedia.org/wiki/OpenAI_o3" class="resource-url" target="_blank">https://en.wikipedia.org/wiki/OpenAI_o3</a>
+                    <div class="resource-description">Comprehensive background and timeline</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="section-icon">💡</span>Best Practices</h2>
+            <div class="best-practices">
+                <div class="practice-card">
+                    <h3>Keep It Concise</h3>
+                    <p>o3 thrives with direct instructions without elaborate explanations</p>
+                </div>
+                <div class="practice-card">
+                    <h3>Avoid Chain-of-Thought</h3>
+                    <p>No need to say "think step-by-step" - it reasons internally</p>
+                </div>
+                <div class="practice-card">
+                    <h3>Use Delimiters</h3>
+                    <p>Use triple quotes, XML tags for organizing input parts</p>
+                </div>
+                <div class="practice-card">
+                    <h3>Limit Extra Context</h3>
+                    <p>Include only the most pertinent information to avoid overwhelming</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="section-icon">📊</span>Usage Limits & Access</h2>
+            <table class="usage-table">
+                <thead>
+                    <tr>
+                        <th>Plan</th>
+                        <th>Deep Research Limit</th>
+                        <th>Access Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Free</strong></td>
+                        <td>5 tasks/month (lightweight version)</td>
+                        <td>Limited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plus/Team/Enterprise/Edu</strong></td>
+                        <td>25 deep research queries per month</td>
+                        <td>Standard + Lightweight fallback</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pro</strong></td>
+                        <td>250 deep research queries per month</td>
+                        <td>Unlimited access to both versions</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2><span class="section-icon">🚀</span>Learning Path</h2>
+            <div class="learning-path">
+                <div class="step-card" data-step="1">
+                    <h3>Foundation</h3>
+                    <ul>
+                        <li>Read OpenAI's official Deep Research introduction</li>
+                        <li>Study DataCamp's o3 API tutorial</li>
+                        <li>Review Deep Research FAQ</li>
+                    </ul>
+                </div>
+                <div class="step-card" data-step="2">
+                    <h3>Implementation</h3>
+                    <ul>
+                        <li>Follow OpenAI Cookbook examples</li>
+                        <li>Practice with DataCamp tutorials</li>
+                        <li>Experiment using Prompting Guide</li>
+                    </ul>
+                </div>
+                <div class="step-card" data-step="3">
+                    <h3>Advanced Usage</h3>
+                    <ul>
+                        <li>Study API documentation for custom implementations</li>
+                        <li>Read technical guides for architectural understanding</li>
+                        <li>Apply best practices from multiple sources</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="section-icon">⚡</span>Key Capabilities</h2>
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <div class="resource-title">Multi-step Research</div>
+                    <div class="resource-description">Conduct multi-step investigations, reference multiple sources, and produce structured reports</div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-title">Autonomous Browsing</div>
+                    <div class="resource-description">Search, interpret, and analyze massive amounts of text, images, and PDFs on the internet</div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-title">Tool Integration</div>
+                    <div class="resource-description">Full access to tools within ChatGPT, plus custom tools via function calling in the API</div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-title">Reasoning Intelligence</div>
+                    <div class="resource-description">Uses reasoning to synthesize large amounts of information and complete complex research tasks</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Created with ❤️ for the AI research community | <a href="https://github.com" target="_blank">View on GitHub</a></p>
+    </div>
+</body>
+</html>
