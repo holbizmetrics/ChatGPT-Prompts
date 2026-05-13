@@ -230,4 +230,6 @@ Before you push your next commit, check these six things:
 
 So the next time you're vibecoding, remember: clean code isn't just about lines—it's about the *developer who reads them next*. That developer is you. Be the Guardian, not the Quick Fixer. Because every project you touch is either building debt… or building trust.
 
-**Companion read:** Once you've internalized the principles here, the *Vibe Coder's Quality Playbook* covers how to actually enforce them when you're generating code with AI—where the principles meet the prompt.
+**Companion reads:**
+- *The Vibe Coder's Quality Playbook* — how to enforce these principles when you're generating code with AI. Where the principles meet the prompt.
+- *The Vibe Coder's Security Playbook* — what will break your app even if the code is clean. The failures AI generates confidently that have nothing to do with code quality and everything to do with surviving production.

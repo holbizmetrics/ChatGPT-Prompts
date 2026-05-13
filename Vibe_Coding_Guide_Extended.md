@@ -298,4 +298,6 @@ The principles haven't changed—the enforcement has. The cheapest enforcement i
 
 Build the habits before you build the tools. The tools amplify the habits. They can't replace them.
 
-**Companion read:** *The Hidden Rules of Clean, Scalable Code* covers the underlying principles—SRP, DRY, OOP that's actually OOP, when not to apply the rules, and the legacy-refactor triage protocol. The two guides cover the same craft from opposite ends: that one is *what to build*; this one is *how to enforce it when AI is helping you build it.*
+**Companion reads:**
+- *The Hidden Rules of Clean, Scalable Code* — the underlying principles: SRP, DRY, OOP that's actually OOP, when not to apply the rules, the legacy-refactor triage protocol. *What to build* to this playbook's *how to enforce*.
+- *The Vibe Coder's Security Playbook* — what will break your app even if the code is clean and the tests pass. The eight failures AI generates confidently that ship vulnerabilities to production.
