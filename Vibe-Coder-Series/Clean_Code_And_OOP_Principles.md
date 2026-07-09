@@ -43,11 +43,11 @@ When you sit down to write code, do you think about the future developer reading
 
 The atom of clean code. A function or class should have *one* reason to change. If you have to touch the same function for an unrelated bug, the bug and the feature were never one thing.
 
-A function that parses vulnerabilities AND enriches them with EPSS data AND filters them AND builds HTML? That's three responsibilities in a trenchcoat. Split them.
+A function that validates a signup form AND saves the user AND sends a welcome email AND writes a log line? That's four responsibilities in a trenchcoat. Split them.
 
 ```
-❌ Before:  def process_vulns():  # 120 lines doing 4 different things
-✅ After:   parse_ratings() → enrich() → filter() → render()  # 30 lines each
+❌ Before:  def handle_signup():  # 120 lines doing 4 different things
+✅ After:   validate() → save_user() → send_welcome() → log_signup()  # 30 lines each
 ```
 
 **SoC — Separation of Concerns: One Job Per Module**
@@ -68,8 +68,8 @@ OOP is one of the most misunderstood principles, especially when learning it thr
 Objects group related data together. Instead of passing 9 variables through every function, you pass one thing that knows what it is.
 
 ```
-❌ Before:  process(name, version, score, severity, vector, epss, kev, lic, type)
-✅ After:   process(component)    # Component holds all of it
+❌ Before:  process(item_count, total, customer_name, address, is_paid, currency)
+✅ After:   process(order)    # Order holds all of it
 ```
 
 This is a real improvement. But it isn't OOP yet. It's parameter bundling. AI will help you do this all day—it's the easy part.
@@ -80,24 +80,24 @@ Real OOP puts the *methods* that operate on the data *next to* the data, and ref
 
 ```
 ❌ Before:
-def is_critical(name, severity, score, kev): ...
-def display(name, severity, score): ...
-def remediate(name, severity, score, vector): ...
+def is_free_shipping(item_count, total, is_member): ...
+def display(item_count, total): ...
+def final_price(total, is_member, currency): ...
 # Same fields passed everywhere. Logic scattered across files.
-# Invariants ("score must be 0–10") live in your memory.
+# Invariants ("total must be >= 0") live in your memory.
 
 ✅ After:
-class Component:
-    def __init__(self, name, severity, score, kev):
-        if not 0 <= score <= 10:
-            raise ValueError("score out of range")
-        self.name, self.severity, self.score, self.kev = name, severity, score, kev
+class Order:
+    def __init__(self, item_count, total, is_member):
+        if total < 0:
+            raise ValueError("total cannot be negative")
+        self.item_count, self.total, self.is_member = item_count, total, is_member
 
-    def is_critical(self) -> bool:
-        return self.severity == "Critical" or self.score >= 9.0 or self.kev
+    def is_free_shipping(self) -> bool:
+        return self.total >= 50 or self.is_member
 
     def display(self) -> str:
-        return f"{self.name}: {self.severity} ({self.score})"
+        return f"{self.item_count} items — ${self.total}"
 
 # Data + behavior co-located. Class refuses to exist in an invalid state.
 # Invariants live in __init__, not in your memory.
@@ -106,6 +106,19 @@ class Component:
 > ⚠️ **Watch out for Surface Compliance.** When you ask AI to "use OOP," it will often produce a class with `__init__` and nothing else—the bundling level. It satisfies the *shape* of the request (it's a class!) without the *substance* (no methods, no invariants). This is true beyond OOP—it's a general failure pattern called *Surface Compliance Without Semantic Compliance*. AI generates output that satisfies the requested practice's shape without delivering its substantive property. Other instances: `async/await` without parallelism, type hints without type-driven design, tests that assert without testing, docstrings that restate the signature. The fix: ask explicitly for the substance, not just the shape. *"Use a class with methods that operate on the data and validate inputs in __init__"* lands what *"use OOP"* won't.
 
 **The earning-a-class test:** A class earns its existence when it has *both* data *and* invariants/behavior over that data. Just data → use a dataclass or a dict. Just behavior → use functions. Both, with rules about what makes the data valid → make it a class.
+
+```
+❌  class Point:                             # a class earning nothing — bundling in disguise
+        def __init__(self, x, y):
+            self.x, self.y = x, y
+✅  from dataclasses import dataclass
+    @dataclass
+    class Point:                             # just data → dataclass, zero boilerplate
+        x: int
+        y: int
+```
+
+(`@dataclass` writes the `__init__` for you. That's the "downgrade" the checklist below keeps pointing at.)
 
 The classic failure has a name in the literature: *Anemic Domain Model* (Martin Fowler, 2003). A class with five fields and no methods is a record dressed as a class. AI generates these routinely. Recognize them; downgrade them.
 
@@ -150,8 +163,8 @@ Use inheritance only when the subclass IS-A the parent in every meaningful way (
 Don't expose your internals. If a class needs a cache, make it private. If a function mutates global state, refactor until it doesn't. The test: can you use this class in a different project without understanding its guts?
 
 ```
-❌ Before:  bom_ref_cache = {}  # global dict, mutated from 4 places
-✅ After:   class BomRefResolver:  # owns its cache, nobody touches it directly
+❌ Before:  cart_items = {}  # global dict, mutated from 4 places
+✅ After:   class Cart:  # owns its items, nobody touches them directly
 ```
 
 **Clear, Consistent Naming — Your Future Self Should Thank You**
@@ -171,7 +184,7 @@ Don't let your code fail silently. If the input is wrong, say *what's* wrong and
 
 ```
 ❌ Before:  except: print("Error")   # which error? where? how to fix?
-✅ After:   die("This looks like SPDX, not CycloneDX. Convert first: [url]")
+✅ After:   raise ValueError("Expected a .json file, got .csv — convert it first.")
 ```
 
 **Testing — Clean Code Without Tests Is Just a Promise**
@@ -180,7 +193,7 @@ If you can't prove it works, it doesn't work. Unit tests catch regressions befor
 
 ```
 ❌ Before:  "I tested it manually, it works"    # until someone changes line 47
-✅ After:   def test_parse_sbom_with_missing_bom_ref():  # runs every commit
+✅ After:   def test_signup_rejects_missing_email():  # runs every commit
 ```
 
 ---
@@ -192,7 +205,7 @@ The Architect's kryptonite is over-engineering. These signals say *don't reach f
 - **One-off scripts.** A 50-line file that runs once doesn't need a class hierarchy. Functions are fine.
 - **Pure pipelines.** When the data flows in one direction—`load() → parse() → render() → write()`—SoC already does the work. Wrapping each step in a class is theater.
 - **Records without rules.** If a "class" is just five fields with no methods and no invariants, it's a record. Use a `dataclass`, `NamedTuple`, or even a `dict`. A bare class with five `self.x = x` lines and nothing else is OOP cosplay.
-- **You can't name the invariants.** If you can't write down a rule like "score must be 0–10" or "if kev is True then severity must be Critical," the class has no work to do beyond holding fields.
+- **You can't name the invariants.** If you can't write down a rule like "total must be >= 0" or "a shipped order must have a tracking number," the class has no work to do beyond holding fields.
 
 The Quick Fixer is correct sometimes. A throwaway script for a one-time data migration shouldn't have factories and abstract base classes. The skill is knowing when "good enough" actually is.
 
