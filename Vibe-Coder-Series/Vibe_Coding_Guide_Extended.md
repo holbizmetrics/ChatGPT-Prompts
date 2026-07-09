@@ -150,7 +150,7 @@ These are *what to check after the code exists.* If Principle 0 (prompt constrai
 
 #### Checkpoint 1: Code Structure and Readability
 
-**Duplication Detection (DRY).** Across files and sessions, the AI doesn't remember what it already wrote. Flag any block that appears substantially similar in more than one place.
+**Duplication Detection (DRY).** Across files and sessions, the AI doesn't remember what it already wrote. Flag any block that appears substantially similar in more than one place — *flag for review, not automatic extraction.* Apply the Rule of Three before you abstract (see *Clean Code & OOP Principles* → "When DRY is wrong"); premature extraction is its own failure mode.
 
 *What to look for:*
 - Functions with identical logic but different names
@@ -222,7 +222,7 @@ When tools exist, leverage them. Embed quality checks into the generation loop, 
 
 ---
 
-### Two Tiers: With Tools and Without
+### Tiers: With Tools and Without
 
 Most quality guidance assumes you have a CI pipeline, linters, hooks, and a test runner. If you don't, the checklist above is aspirational, not actionable. Here's what to actually do at each tier:
 

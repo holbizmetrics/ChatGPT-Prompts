@@ -8,7 +8,7 @@ Here's what nobody told you: there are eight ways your AI just baked a security 
 
 This guide teaches you how to find them. No security background needed. The fixes are concrete; the failures are visible once you know what to look for.
 
-**The regulatory angle, briefly.** The **EU Cyber Resilience Act (CRA)** applies from late 2027 to anyone shipping software products into the EU—including indie devs. **NIST SSDF** (the standard the US Executive Order 14028 spawned) is the de facto US baseline; cyber insurers and enterprise B2B procurement already require it. Both regulations are converging on the same secure-development practice set. You don't need to read either of them today. But you do need to write code that won't humiliate you when one applies.
+**The regulatory angle, briefly.** The **EU Cyber Resilience Act (CRA)** applies from late 2027 to anyone shipping software products into the EU—including indie devs. **NIST SSDF** (a NIST standard that predates and was elevated into the mainstream by US Executive Order 14028) is the de facto US baseline; cyber insurers and enterprise B2B procurement already require it. Both regulations are converging on the same secure-development practice set. You don't need to read either of them today. But you do need to write code that won't humiliate you when one applies.
 
 **Companion reads:** *The Hidden Rules of Clean, Scalable Code* (the principles) and *The Vibe Coder's Quality Playbook* (how to enforce them with AI). This guide assumes you can read code; it doesn't assume you can spot a vulnerability.
 
@@ -175,7 +175,9 @@ hashed = hashlib.md5(password.encode()).hexdigest()
 # ✅ After
 import bcrypt
 hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt(rounds=12))
-# Or argon2 (newer, stronger)
+# Note: bcrypt silently truncates the password to 72 bytes — harmless for normal
+# passwords, a footgun for very long ones / passphrases.
+# Or argon2 (newer, stronger, no truncation)
 ```
 
 ```python
@@ -239,6 +241,8 @@ Some categories of code deserve a second look every time the AI produces them. T
 
 Concrete steps. Each one is doable in 5-10 minutes with no security background. Do them all before you ship.
 
+> **No terminal or `grep` handy (e.g. on stock Windows)?** Paste any command below into your AI and ask it to run the equivalent search across your project. Make the greps case-insensitive (`grep -i`). Either way, treat these as a *first pass*, not a guarantee — Tier 1 scanners (gitleaks, bandit) catch cases (lowercase, `.format()`, `%`-strings, modern token shapes) that a literal grep misses.
+
 1. **Search for embedded secrets.** Run:
    ```
    git log -p | grep -iE "sk-|ghp_|AKIA|password ?= ?['\"]|api_key ?= ?['\"]"
@@ -267,7 +271,7 @@ Done. You've closed the most common vulnerabilities AI introduces. Not all vulne
 
 ---
 
-### Two Tiers: With Tools and Without
+### Tiers: With Tools and Without
 
 Same scaffolding as the Quality Playbook—match your discipline to your stage.
 
