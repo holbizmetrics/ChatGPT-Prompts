@@ -118,7 +118,7 @@ If you've written the same logic twice, you'll fix a bug in one place and forget
 ✅ After:   def make_badge(text, color): ...   # one function, called everywhere
 ```
 
-> ⚠️ **When DRY is wrong.** Two blocks of code can *look* similar without being the same thing. Extracting them prematurely creates an abstraction your future code will fight against. Sandi Metz puts it bluntly: *"Duplication is far cheaper than the wrong abstraction."* Kent Dodds names the corrective: **AHA — Avoid Hasty Abstractions.** The Pragmatic Programmer's *Rule of Three:* duplicate once is fine; duplicate twice, look hard; duplicate three times, *then* extract. AI loves to extract on surface similarity. Don't let it commit you to an abstraction that locks the wrong thing in.
+> ⚠️ **When DRY is wrong.** Two blocks of code can *look* similar without being the same thing. Extracting them prematurely creates an abstraction your future code will fight against. Sandi Metz puts it bluntly: *"Duplication is far cheaper than the wrong abstraction."* Kent Dodds names the corrective: **AHA — Avoid Hasty Abstractions.** The *Rule of Three* (from Fowler's *Refactoring*, crediting Don Roberts): duplicate once is fine; duplicate twice, look hard; duplicate three times, *then* extract. AI loves to extract on surface similarity. Don't let it commit you to an abstraction that locks the wrong thing in.
 
 **Composition Over Inheritance — Don't Trap Yourself in Class Trees**
 
@@ -136,9 +136,10 @@ class AdminBillingUser(AdminUser, BillingUser): ...   # combinatorial explosion
 ✅ Composition:
 class User:
     def __init__(self, name, roles: list[Role]):
+        self.name = name
         self.roles = roles
     def can(self, action: str) -> bool:
-        return any(r.permits(action) for r in self.roles)
+        return any(role.permits(action) for role in self.roles)
 # Add a new Role class. Combine freely. No subclass tree.
 ```
 
@@ -153,13 +154,15 @@ Don't expose your internals. If a class needs a cache, make it private. If a fun
 ✅ After:   class BomRefResolver:  # owns its cache, nobody touches it directly
 ```
 
-**Consistent Naming — Your Future Self Should Thank You**
+**Clear, Consistent Naming — Your Future Self Should Thank You**
 
-Pick a convention and stick to it. `snake_case` for functions, `PascalCase` for classes, `UPPER_CASE` for constants. Private helpers get a `_prefix`. If someone can guess what your function does from its name alone, you've won.
+Two axes, and both matter. **Descriptive over abbreviated:** `r`, `d`, `tmp`, `fp`, `proc` force the next reader to reconstruct what you meant every time they hit them; `result`, `data`, `file_pointer`, `parse_order` don't. If someone can guess what your function does from its name alone, you've won. **Consistent convention:** pick one and stick to it — `snake_case` for functions, `PascalCase` for classes, `UPPER_CASE` for constants, `_prefix` for private helpers.
+
+There's an AI-specific twist. **AI abbreviates to spend fewer of *its own* output tokens — and you pay that cost back every single time you re-read the code** ("wait, what was `d` again?"). It's a false economy: cheap for the machine writing it, expensive for the human reading it, and the humans read it far more often. Terse names are a reliable *quality signal* — the more single-letter variables, the less the author was thinking about the reader. And the AI will not default to good names; you have to ask for them explicitly.
 
 ```
-❌ Before:  def proc(d, f, e):          # what are d, f, e?
-✅ After:   def parse_sbom(data, config):  # immediately clear
+❌ Before:  def proc(d, f, e):              # what are d, f, e?
+✅ After:   def parse_order(order_data, config):  # immediately clear
 ```
 
 **Error Handling — Stability Is Collaboration's Backbone**

@@ -140,7 +140,7 @@ Recognize this as a known failure mode, and recognize the countermove: **context
 
 The block isn't a technical one—it's sunk cost. You've invested 20 minutes; throwing away feels like loss. **It's not.** A clean restart with what you've learned costs 5 minutes and produces better output than 30 more minutes of correction.
 
-(Anthropic's Aider has a `/drop` command. OpenAI's playground has "clear conversation." Both exist because this pattern is real.)
+(Aider (open-source) has a `/clear` command; ChatGPT and Claude both let you start a fresh chat. The countermove is common enough to be built in.)
 
 ---
 

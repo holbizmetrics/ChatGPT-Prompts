@@ -22,7 +22,7 @@ The same family that haunts the other two guides is most dangerous here.
 
 You asked for "authentication." It produced a `login()` function that sets a cookie. ✓ shape. Does it actually verify the password? Does the cookie expire? Is it `HttpOnly`? Is the token random or guessable? ✗ substance.
 
-You asked for "password hashing." It produced `hashlib.md5(password).hexdigest()`. ✓ shape (it's a hash). MD5 broken since the 1990s, reversible with a $5 GPU rental, no salt, no work factor. ✗ substance.
+You asked for "password hashing." It produced `hashlib.md5(password).hexdigest()`. ✓ shape (it's a hash). MD5 is a *fast* hash, so it's trivially *cracked* offline — unsalted and GPU-cheap, a $5 rental brute-forces common passwords in minutes — with no work factor. (Hashes aren't "reversed"; they're cracked by guessing.) ✗ substance.
 
 You asked for "input validation." It produced `if name:`. ✓ shape (it checks something). Doesn't constrain type, length, character set, or special characters. ✗ substance.
 
@@ -140,7 +140,7 @@ app.use(cors({
 }));
 ```
 
-**Why it matters:** `origin: '*'` with `credentials: true` means any website on the internet can make authenticated requests to your API as your logged-in user. Browsers used to allow this until they realized how bad it was.
+**Why it matters:** the genuinely dangerous pattern is *reflecting the caller's origin* — `origin: true` in the `cors` package, or echoing back the request's `Origin` header — together with `credentials: true`. That passes the browser's check for *any* origin, so any website on the internet can make authenticated requests to your API as your logged-in user. (A *literal* `origin: '*'` with `credentials: true` is actually rejected by the browser — the CORS spec forbids that exact combination — but the explicit allow-list below is the correct fix for both cases, so don't rely on the browser to save you.)
 
 #### 6. Insecure Defaults Shipped to Production
 
@@ -170,7 +170,7 @@ AI confidently uses broken or misused crypto because the broken patterns are wel
 ```python
 # ❌ Before (passwords)
 hashed = hashlib.md5(password.encode()).hexdigest()
-# MD5 reversible in seconds. SHA1 same problem. Plain SHA256 lacks salt + work factor.
+# MD5/SHA1 cracked in seconds offline (fast + unsalted). Plain SHA256 lacks salt + work factor too.
 
 # ✅ After
 import bcrypt
@@ -263,7 +263,7 @@ Concrete steps. Each one is doable in 5-10 minutes with no security background. 
 
 10. **CORS sanity check.** If your API has CORS, the origin list is explicit (no `*` with credentials).
 
-Done. You've closed the most common vulnerabilities AI introduces. Not all vulnerabilities—but the ones that account for ~80% of indie-dev breaches.
+Done. You've closed the most common vulnerabilities AI introduces. Not all vulnerabilities—but the ones behind the large majority of indie-dev breaches.
 
 ---
 
@@ -313,7 +313,7 @@ The **EU Cyber Resilience Act** applies from late 2027. If you ship software pro
 
 **The US side:** **NIST SSDF** (driven by **Executive Order 14028**) is the de facto secure-development baseline. Even without federal customers, cyber insurers and enterprise B2B procurement increasingly require SSDF attestation.
 
-**The reassuring part:** if you've done the Pre-Ship Checklist above and you're running at least Tier 1, you're 60% of the way to CRA/SSDF compliance. The remaining 40% is documentation, attestation, and process—not net-new security work.
+**The reassuring part:** if you've done the Pre-Ship Checklist above and you're running at least Tier 1, you've got a meaningful head start on CRA/SSDF compliance. Most of what remains is documentation, attestation, and process—not net-new security work.
 
 ---
 

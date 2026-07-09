@@ -5,7 +5,7 @@ Three companion guides for shipping software with AI as a collaborator. Audience
 ## Reading order
 
 1. **[Clean Code & OOP Principles](Clean_Code_And_OOP_Principles.md)** — *What to build.*
-   Eight principles for code that doesn't rot. Real OOP (with methods + invariants, not just bundled data), composition over inheritance, when NOT to apply each rule, the legacy-refactor triage protocol. Read this first.
+   Nine principles for code that doesn't rot. Real OOP (with methods + invariants, not just bundled data), composition over inheritance, when NOT to apply each rule, the legacy-refactor triage protocol. Read this first.
 
 2. **[Vibe Coder's Quality Playbook](Vibe_Coding_Guide_Extended.md)** — *How to enforce it with AI.*
    Constrain before you generate. Read AI output skeptically. Throw away when you're stuck (don't argue the anchor). Two tiers — bare discipline (no tools needed) and full CI. Read this once you've internalized the principles.
