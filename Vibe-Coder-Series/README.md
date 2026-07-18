@@ -8,7 +8,7 @@ Three companion guides for shipping software with AI as a collaborator. Audience
    Nine principles for code that doesn't rot. Real OOP (with methods + invariants, not just bundled data), composition over inheritance, when NOT to apply each rule, the legacy-refactor triage protocol. Read this first.
 
 2. **[Vibe Coder's Quality Playbook](Vibe_Coding_Guide_Extended.md)** — *How to enforce it with AI.*
-   Constrain before you generate. Read AI output skeptically. Throw away when you're stuck (don't argue the anchor). Two tiers — bare discipline (no tools needed) and full CI. Read this once you've internalized the principles.
+   Constrain before you generate — and when you already know the code will grow, declare the architecture at the start (structure is how the model keeps fitting your problem in its context window). Write standing constraints into a project constitution file (`CLAUDE.md` / `AGENTS.md`) the AI reads every session, instead of repeating them in dying chats. Read AI output skeptically. Throw away when you're stuck (don't argue the anchor). Two tiers — bare discipline (no tools needed) and full CI. Read this once you've internalized the principles.
 
 3. **[Vibe Coder's Security Playbook](Vibe_Coder_Security_Playbook.md)** — *What will break your app in production.*
    Eight failures AI generates confidently (hardcoded secrets, SQL injection, XSS via `innerHTML`, missing validation, open CORS, insecure defaults, crypto misuse, trust boundary confusion). Pre-Ship Security Checklist. CRA + SSDF awareness without panic. Read this before you ship.

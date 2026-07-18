@@ -72,6 +72,24 @@ Some people call these "system prompts," "constitution prompts," or "specificati
 
 ---
 
+### Principle 0.5 — Declare the Architecture Early (When You Know It Will Grow)
+
+Principle 0 applied to the biggest decision of all: **structure.** Here's the asymmetry that makes it worth its own principle:
+
+Models are extremely good at writing code now. But past a certain codebase size, they are *measurably better* at working in well-structured code than in a monolith — and the reason is mechanical, not aesthetic: **locality.** No context window comfortably holds a whole grown codebase. Well-drawn classes and modules mean the AI only needs *one unit plus its contracts* in focus to work correctly. **Interfaces are compression.** Structure isn't just kinder to the next human — it's how the model keeps fitting your problem in its head as the problem grows.
+
+So if you already *know* the code won't stay small — it's a product, not a script; it will live for months; multiple sessions (or multiple AIs) will touch it — **why wait for the mess to justify the refactor? Say it at the beginning:**
+
+> "This will grow beyond a few files. Structure it accordingly from the start: name the module seams before writing code. Classes own their data and validate invariants in the constructor. One responsibility per unit, max ~40 lines per function. When you add a capability, tell me which module it belongs to before generating."
+
+Fifty tokens at the start of the project. It shapes every session that follows — and it costs a fraction of the refactor you'd otherwise buy later.
+
+**Watch the shape/substance trap here too.** "Use OOP" gets you a `class` with an `__init__` — shape. The constraint above asks for the *substance*: seams named first, data + behavior co-located, invariants enforced at construction. (The companion guide's "earning-a-class test" is the check: data *and* rules about the data → class. Otherwise dataclass or functions.)
+
+**When NOT to apply this:** the inverse is still true. One-off scripts, spikes, and exploratory scratch code shouldn't pay the architecture tax — declaring a module map for a 50-line experiment is theater. The skill is honest triage at project start: *"Do I already know this will grow?"* If yes, declare structure now. If genuinely unsure, default light — but the moment you catch yourself saying "we'll clean it up later," that's your answer, and later is the expensive time to hear it.
+
+---
+
 ### Principle — Persistence Belongs to the Substrate
 
 The AI has no memory of yesterday's session. Whatever you discussed, debugged, agreed on—gone. The model that opens your next chat is the same model that opened yesterday's, with no knowledge of what happened in between.
@@ -94,8 +112,32 @@ The mechanism is structural, not a model flaw. The AI is stateless across sessio
 | "This is the architecture" | ADR (architecture decision record) |
 | "Domain vocabulary" | Project glossary in `docs/` |
 | "Discovered constraint" | Explicit assertion / type / docstring |
+| "Standing constraints for the AI itself" | Project constitution file (`CLAUDE.md` / `AGENTS.md` / `.cursorrules`) |
 
 Practical corollary: **Bugs that aren't in tests will be regenerated.** Regression testing isn't just defensive in AI-assisted code—it's the *only* memory of what didn't work.
+
+---
+
+### Principle — The Project Constitution (Principle 0, Made Standing)
+
+Put the last two principles together and you get the highest-leverage file in an AI-assisted repo. Principle 0 says the cheapest constraint is the one in the prompt. Persistence says anything not written into the substrate dies with the session. The synthesis:
+
+> **A prompt constraint you'd repeat every session belongs in a file the AI reads every session.**
+
+Modern coding agents (Claude Code, Cursor, Copilot Workspace, and friends) read a repo-level instruction file at the start of every session — `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, depending on the tool. That file is Principle 0 with persistence: a constitution the project imposes on *every* future session, including sessions run by a different model, on a different machine, by a collaborator who never saw your chats.
+
+**What belongs in it** (short — this is a constitution, not a novel):
+
+- **The architecture declaration** from Principle 0.5, if the project has one ("modules and seams are X, Y, Z; new capabilities get assigned to a module before code is written")
+- **Structure rules:** function-size limit, one-responsibility-per-unit, invariants-validated-at-construction
+- **Conventions:** naming, formatting, error-message style ("say what's wrong AND how to fix it")
+- **The regression covenant:** *every bug fix ships with the test that would have caught it* — this single line turns the substrate-memory principle into standing law
+- **Project-specific landmines:** "always use the existing `User` class," "never touch `spool/` in tests," whatever you've corrected twice already
+
+**Two failure modes to avoid:**
+
+1. **The bloated constitution.** A 400-line rules file is noise the model skims and the human never updates. If it doesn't fit on one screen, it's drifting from constitution toward documentation — split the reference material out and keep the *rules* lean.
+2. **The unenforced constitution.** Prose rules drift; nothing fires when they're violated. Wherever a rule *can* be a linter config, a type signature, or a pre-commit hook instead, promote it — the constitution states the law, the tooling enforces it (Checkpoint 5). Rules that stay prose-only are reminders, not guarantees. Know which of yours are which.
 
 ---
 
@@ -140,7 +182,7 @@ Recognize this as a known failure mode, and recognize the countermove: **context
 
 The block isn't a technical one—it's sunk cost. You've invested 20 minutes; throwing away feels like loss. **It's not.** A clean restart with what you've learned costs 5 minutes and produces better output than 30 more minutes of correction.
 
-(Aider (open-source) has a `/clear` command; ChatGPT and Claude both let you start a fresh chat. The countermove is common enough to be built in.)
+(Aider — Paul Gauthier's open-source AI pair-programmer — has a `/clear` command. So does Claude Code. ChatGPT has "new chat." The countermove is common enough to be built in.)
 
 ---
 
@@ -280,7 +322,7 @@ The Quick Fixer is correct for one-off scripts. The Architect is correct for sys
 
 Before you ship anything the AI helped build:
 
-1. **Did I constrain in the prompt?** If the output is wrong, was it because the prompt was loose?
+1. **Did I constrain in the prompt — or better, in the constitution?** If the output is wrong, was it because the constraint was loose, or because it lived in a dead chat instead of the repo?
 2. **Did I scan for the four Surface Compliance instances?** Specifically: is the output delivering substance, or just shape?
 3. **Did I validate the inputs?** Not "does it work with good data" but "does it fail helpfully with bad data?"
 4. **Can I explain what each function does?** If you can't, you can't maintain it.

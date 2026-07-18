@@ -211,6 +211,19 @@ The Quick Fixer is correct sometimes. A throwaway script for a one-time data mig
 
 ---
 
+### When to Reach for Structure EARLY (the inverse call)
+
+The list above protects you from over-engineering. This one protects you from its mirror image: *knowing* a project will grow and structuring it anyway-later. If any of these are true at project start, declare the structure **before the first generation**, not after the mess:
+
+- **It's a product, not a script** — it will still be running in six months.
+- **More than one session will touch it** — tomorrow's AI session has no memory of today's design unless the structure *is* the memory.
+- **You can already name two or more distinct concerns** (transport vs. UI vs. crypto; parsing vs. rendering) — those are your module seams. Name them first.
+- **You catch yourself thinking "we'll clean it up later."** Later is the expensive time.
+
+The reason this matters *more* with AI, not less: past a certain codebase size, models work measurably better in well-structured code — no context window holds a grown monolith, but a clean module means the AI only needs one unit plus its contracts in focus. **Interfaces are compression.** Structure is how the model keeps fitting your problem in its head as the problem grows. Telling it early costs a sentence; retrofitting costs a rewrite. (How to phrase that sentence so you get substance instead of shape: see the Quality Playbook, Principle 0.5.)
+
+---
+
 ### When You Inherit a Mess (Triage Protocol)
 
 Most of the time, you're not starting fresh. You're staring at a codebase the AI wrote two months ago and you're afraid to touch it. Here's the triage:
